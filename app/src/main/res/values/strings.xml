@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">hodgepodge</string>
+
+    <!--底部菜单-->
+    <string name="best">百思</string>
+    <string name="news">新闻</string>
+    <string name="found">知识</string>
+    <string name="about">关于</string>
+</resources>
