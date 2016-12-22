@@ -4,11 +4,15 @@ import android.content.Context;
 
 import com.lyh.hodgepodge.ui.view.BaseView;
 
+import rx.Subscription;
+
+
 /**
  * Created by lyh on 2016/12/21.
  */
 
 public abstract class BasePresenter<T extends BaseView> {
+    protected Subscription subscription;
     protected Context context;
     protected T iView;
 
