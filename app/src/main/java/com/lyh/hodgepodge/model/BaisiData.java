@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class BaisiData extends BaseData{
-    public List<Baisi> results;
+    public static List<Baisi> results;
 
     @Override
     public String toString() {

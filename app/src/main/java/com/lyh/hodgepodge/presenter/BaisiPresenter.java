@@ -33,19 +33,31 @@ public class BaisiPresenter extends BasePresenter<BaisiView> {
         subscription = null;
     }
 
-    public void fetchBaisiData(String appid, String type, String title, String page, String sign) {
+    public void fetchBaisiData() {
         subscription = HttpClient.getHttpRetrofitInstance()
-                .getBaisiData(appid, type, title, page, sign)
+                .getBaisiData("","29268","","","","2bc6af3dbede4893b5e00ff7f006e7dc")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<BaisiData>() {
+                .map(new Func1<Baisi, List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean>>() {
                     @Override
-                    public void call(BaisiData baisiData) {
-//                        if (baisiData.results.toString() == null){
-                        Log.d("1111","baisiData.results.size() == 0");
-//                        }else {
-                        Log.d("1111","baisiData = " + baisiData.toString());
-                       // }
+                    public List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> call(Baisi baisi) {
+                        return baisi.getShowapi_res_body().getPagebean().getContentlist();
+                    }
+                })
+                .subscribe(new Subscriber<List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("1111","onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("1111","onError" + e);
+                    }
+
+                    @Override
+                    public void onNext(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> contentlistBeen) {
+                        Log.d("1111","onNext" + contentlistBeen.toString());
                     }
                 });
 

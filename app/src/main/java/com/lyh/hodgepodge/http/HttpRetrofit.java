@@ -5,6 +5,7 @@ import com.lyh.hodgepodge.model.FunnyData;
 import com.lyh.hodgepodge.model.GanHuoData;
 import com.lyh.hodgepodge.model.GankData;
 import com.lyh.hodgepodge.model.MeiziData;
+import com.lyh.hodgepodge.model.entity.Baisi;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -18,9 +19,11 @@ import rx.Observable;
 public interface HttpRetrofit {
     // http://route.showapi.com/255-1?showapi_appid=29268&type=&title=&page=&showapi_sign=2bc6af3dbede4893b5e00ff7f006e7dc
     @GET("255-1")
-    Observable<BaisiData> getBaisiData(@Query("showapi_appid") String appid, @Query("type") String type,
-                                       @Query("title") String title, @Query("page") String page,
-                                       @Query("showapi_sign") String sign);
+//    Observable<BaisiData> getBaisiData();
+    Observable<Baisi> getBaisiData(@Query("page") String page, @Query("showapi_appid") String appid,
+                                   @Query("showapi_timestamp") String showapi_timestamp,
+                                   @Query("title") String title, @Query("type") String type,
+                                   @Query("showapi_sign") String sign);
     // http://gank.io/api/data/数据类型/请求个数/第几页
     @GET(value = "data/福利/" + "20" + "/{page}")
     Observable<MeiziData> getMeiziData(@Path("page") int page);

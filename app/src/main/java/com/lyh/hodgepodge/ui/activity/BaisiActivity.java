@@ -52,6 +52,6 @@ public class BaisiActivity extends BaseActivity<BaisiPresenter> implements Baisi
 
     private void getIntentData() {
         Log.d("1111","getIntentData()");
-        presenter.fetchBaisiData("29268",null,null,null,"2bc6af3dbede4893b5e00ff7f006e7dc");
+        presenter.fetchBaisiData();
     }
 }
