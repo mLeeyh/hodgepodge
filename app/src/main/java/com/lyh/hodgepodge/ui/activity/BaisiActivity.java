@@ -1,13 +1,11 @@
 package com.lyh.hodgepodge.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.lyh.hodgepodge.R;
-import com.lyh.hodgepodge.presenter.BaisiPresenter;
 import com.lyh.hodgepodge.ui.view.BaisiView;
 
-public class BaisiActivity extends BaseActivity<BaisiPresenter> implements BaisiView {
+public class BaisiActivity extends BaseActivity implements BaisiView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +17,11 @@ public class BaisiActivity extends BaseActivity<BaisiPresenter> implements Baisi
         return R.layout.activity_main;
     }
 
+
+
     @Override
-    protected void initPresenter() {
-        presenter = new BaisiPresenter(this,this);
-        presenter.init();
-    }
+    public void initView() {}
+
 
     @Override
     public void showProgressBar() {
@@ -43,15 +41,5 @@ public class BaisiActivity extends BaseActivity<BaisiPresenter> implements Baisi
     @Override
     public void showNoMoreData() {
 
-    }
-
-    @Override
-    public void initView() {
-        getIntentData();
-    }
-
-    private void getIntentData() {
-        Log.d("1111","getIntentData()");
-        presenter.fetchBaisiData();
     }
 }

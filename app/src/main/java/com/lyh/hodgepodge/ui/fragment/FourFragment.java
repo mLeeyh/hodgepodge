@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.support.v4.app.Fragment;
 /**
  * Created by lyh on 2016/12/23.
  */
-public class FourFragment extends BaseFramgent {
+public class FourFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,8 +22,5 @@ public class FourFragment extends BaseFramgent {
 
         return textView;
     }
-    @Override
-    protected void lazyLoad() {
 
-    }
 }

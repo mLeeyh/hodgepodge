@@ -6,6 +6,8 @@
     <!--底部菜单-->
     <color name="transparent">#00000000 </color>
     <color name="white">#FFFFFF</color>
+    <color name="white_selecte">#FFFFFF</color>
+    <color name="white_normal">#AAFFFFFF</color>
     <color name="topbar_bg">#12AF4D</color>
     <color name="tab_bg">#f9f9f9</color>
     <color name="tab_text_bg">#bababa</color>

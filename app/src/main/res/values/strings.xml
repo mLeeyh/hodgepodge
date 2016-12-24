@@ -6,7 +6,7 @@
     <string name="news">新闻</string>
     <string name="found">知识</string>
     <string name="about">关于</string>
-
+    <string name="baisi">百思不得姐</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

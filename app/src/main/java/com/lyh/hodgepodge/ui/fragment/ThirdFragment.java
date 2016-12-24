@@ -2,6 +2,7 @@ package com.lyh.hodgepodge.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 /**
  * Created by lyh on 2016/12/23.
  */
-public class ThirdFragment extends BaseFramgent {
+public class ThirdFragment extends Fragment {
 
     @Nullable
     @Override
@@ -22,10 +23,5 @@ public class ThirdFragment extends BaseFramgent {
         textView.setGravity(Gravity.CENTER);
 
         return textView;
-    }
-
-    @Override
-    protected void lazyLoad() {
-
     }
 }

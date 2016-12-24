@@ -4,20 +4,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.lyh.hodgepodge.R;
-import com.lyh.hodgepodge.model.entity.Gank;
-import com.lyh.hodgepodge.presenter.GankPresenter;
-import com.lyh.hodgepodge.ui.fragment.BaisiFragment;
+import com.lyh.hodgepodge.ui.fragment.BaisiTabFragment;
 import com.lyh.hodgepodge.ui.fragment.FourFragment;
 import com.lyh.hodgepodge.ui.fragment.NewsFragment;
 import com.lyh.hodgepodge.ui.fragment.ThirdFragment;
-import com.lyh.hodgepodge.ui.view.IGankView;
+import com.lyh.hodgepodge.ui.view.IBaseView;
 
 import java.util.List;
 
@@ -26,11 +23,8 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity<GankPresenter> implements IGankView {
+public class MainActivity extends BaseActivity implements IBaseView {
 
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.id_content)
     FrameLayout idContent;
     @BindView(R.id.tab_baisi)
@@ -41,11 +35,10 @@ public class MainActivity extends BaseActivity<GankPresenter> implements IGankVi
     RadioButton tabFound;
     @BindView(R.id.tab_about)
     RadioButton tabAbout;
-    @BindView(R.id.coordinatorLayout)
-    LinearLayout coordinatorLayout;
 
     @BindViews({R.id.tab_baisi, R.id.tab_news, R.id.tab_found, R.id.tab_about})
     List<RadioButton> mTabs;
+
     private Fragment mTab01;
     private Fragment mTab02;
     private Fragment mTab03;
@@ -64,34 +57,8 @@ public class MainActivity extends BaseActivity<GankPresenter> implements IGankVi
     }
 
     @Override
-    protected void initPresenter() {
-        presenter = new GankPresenter(this, this);
-        presenter.init();
-    }
-
-    @Override
-    public void showGankList(List<Gank> gankList) {
-
-    }
-
-    @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
-
-    @Override
-    public void showErrorView() {
-
-    }
-
-    @Override
     public void initView() {
-
+        setSelect(0);
     }
 
     @OnClick({R.id.tab_baisi, R.id.tab_news, R.id.tab_found, R.id.tab_about})
@@ -120,12 +87,13 @@ public class MainActivity extends BaseActivity<GankPresenter> implements IGankVi
         switch (select) {
             case 0:
                 if (mTab01 == null) {
-                    mTab01 = new BaisiFragment();
+                    mTab01 = new BaisiTabFragment();
                     transaction.add(R.id.id_content, mTab01);
                 } else {
                     transaction.show(mTab01);
                 }
                 mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_pressed_icon, 0, 0);
+                Log.d("1111", "select 0");
                 break;
             case 1:
                 if (mTab02 == null) {
@@ -159,6 +127,7 @@ public class MainActivity extends BaseActivity<GankPresenter> implements IGankVi
                 break;
         }
         transaction.commit();
+        Log.d("1111", "transaction.commit();");
     }
 
     private void hideFragment(FragmentTransaction transaction) {

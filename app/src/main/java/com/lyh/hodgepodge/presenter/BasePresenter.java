@@ -2,7 +2,7 @@ package com.lyh.hodgepodge.presenter;
 
 import android.content.Context;
 
-import com.lyh.hodgepodge.ui.view.BaseView;
+import com.lyh.hodgepodge.ui.view.IBaseView;
 
 import rx.Subscription;
 
@@ -11,7 +11,7 @@ import rx.Subscription;
  * Created by lyh on 2016/12/21.
  */
 
-public abstract class BasePresenter<T extends BaseView> {
+public abstract class BasePresenter<T extends IBaseView> {
     protected Subscription subscription;
     protected Context context;
     protected T iView;
