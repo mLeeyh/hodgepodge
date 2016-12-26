@@ -69,11 +69,14 @@ public class BaisiFramgent extends BaseFramgent<BaisiBaseFramgentPresenter> impl
             case 0:
                 type = "";
                 break;
+            case 2:
+                type = "10";
+                break;
             default:
                 break;
         }
 
-        if (tab == 0) {
+        if (tab == 0 || tab ==2) {
             return view;
         } else {
             TextView textView = new TextView(getActivity());

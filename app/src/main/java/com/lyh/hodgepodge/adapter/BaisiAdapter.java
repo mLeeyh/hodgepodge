@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lyh.hodgepodge.R;
@@ -23,6 +24,7 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
 
     List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> mList;
     Context context;
+
 
     public BaisiAdapter(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> list, Context context) {
         this.mList = list;
@@ -51,6 +53,8 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
 
         @BindView(R.id.tv_desc_title)
         TextView tvDescTitle;
+        @BindView(R.id.iv_picture)
+        ImageView ivPicture;
 
         public BaisiHolder(View itemView) {
             super(itemView);
