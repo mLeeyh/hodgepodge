@@ -3,7 +3,10 @@ package com.lyh.hodgepodge.ui.activity;
 import android.os.Bundle;
 
 import com.lyh.hodgepodge.R;
+import com.lyh.hodgepodge.model.entity.Baisi;
 import com.lyh.hodgepodge.ui.view.BaisiView;
+
+import java.util.List;
 
 public class BaisiActivity extends BaseActivity implements BaisiView {
 
@@ -40,6 +43,11 @@ public class BaisiActivity extends BaseActivity implements BaisiView {
 
     @Override
     public void showNoMoreData() {
+
+    }
+
+    @Override
+    public void showListView(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> baisiList) {
 
     }
 }

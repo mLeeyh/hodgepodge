@@ -20,7 +20,7 @@ public interface HttpRetrofit {
     // http://route.showapi.com/255-1?showapi_appid=29268&type=&title=&page=&showapi_sign=2bc6af3dbede4893b5e00ff7f006e7dc
     @GET("255-1")
 //    Observable<BaisiData> getBaisiData();
-    Observable<Baisi> getBaisiData(@Query("page") String page, @Query("showapi_appid") String appid,
+    Observable<Baisi> getBaisiData(@Query("page") int page, @Query("showapi_appid") String appid,
                                    @Query("showapi_timestamp") String showapi_timestamp,
                                    @Query("title") String title, @Query("type") String type,
                                    @Query("showapi_sign") String sign);

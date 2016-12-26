@@ -11,6 +11,7 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -31,9 +32,10 @@ public class BaisiBaseFramgentPresenter extends BasePresenter<BaisiView> {
         }
     }
 
-    public void fetchBaisiData() {
+    public void fetchBaisiData(int page, String type) {
+        iView.showProgressBar();
         subscription = HttpClient.getHttpRetrofitInstance()
-                .getBaisiData("","29268","","","","2bc6af3dbede4893b5e00ff7f006e7dc")
+                .getBaisiData(page, "29268", "", "", type, "2bc6af3dbede4893b5e00ff7f006e7dc")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<Baisi, List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean>>() {
@@ -42,20 +44,22 @@ public class BaisiBaseFramgentPresenter extends BasePresenter<BaisiView> {
                         return baisi.getShowapi_res_body().getPagebean().getContentlist();
                     }
                 })
-                .subscribe(new Subscriber<List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean>>() {
+                .subscribe(new Action1<List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean>>() {
                     @Override
-                    public void onCompleted() {
-                        Log.d("1111","onCompleted");
+                    public void call(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> list) {
+                        iView.hideProgressBar();
+                        if (list.size() == 0) {
+                            iView.showNoMoreData();
+                        } else {
+                            Log.i("1111","list = " + list.toString());
+                            iView.showListView(list);
+                        }
                     }
-
+                }, new Action1<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
-                        Log.d("1111","onError" + e);
-                    }
-
-                    @Override
-                    public void onNext(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> contentlistBeen) {
-                        Log.d("1111","onNext" + contentlistBeen.toString());
+                    public void call(Throwable throwable) {
+                        iView.hideProgressBar();
+                        iView.showErrorView();
                     }
                 });
     }
