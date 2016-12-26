@@ -54,12 +54,10 @@ public class LMRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void onScreenStateChanged(int screenState) {
-        Log.i("1111","screenState = " + screenState);
+    public void onScrollStateChanged(int state) {
 
         LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-        if (screenState == RecyclerView.SCROLL_STATE_IDLE) {
-            Log.i("1111", "RecyclerView.SCROLL_STATE_IDLE");
+        if (state == RecyclerView.SCROLL_STATE_IDLE) {
             int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
             int totalItemCount = layoutManager.getItemCount();
             if (lastVisibleItem == (totalItemCount - 1) && isScrollingToBottom) {

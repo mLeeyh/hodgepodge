@@ -54,7 +54,7 @@ public class BaisiTabFragment extends Fragment {
         mFragmentList.clear();
         for(int i = 0;i<mTitles.length;i++){
             Bundle bundle = new Bundle();
-            bundle.putString("type",type[i]);
+            bundle.putInt("tab",i);
             mFragmentList.add(BaisiFramgent.getInstance(bundle));
         }
     }

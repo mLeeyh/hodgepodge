@@ -64,20 +64,20 @@ public class BaisiFramgent extends BaseFramgent<BaisiBaseFramgentPresenter> impl
         View view = inflater.inflate(R.layout.fragment_baisi, container, false);
         ButterKnife.bind(this, view);
         initData();
-        String tab = getArguments().getString("type");
+        int tab = getArguments().getInt("tab");
         switch (tab) {
-            case "all":
+            case 0:
                 type = "";
                 break;
             default:
                 break;
         }
 
-        if (tab.equals("all")) {
+        if (tab == 0) {
             return view;
         } else {
             TextView textView = new TextView(getActivity());
-            textView.setText("BaisiBaseFramgent " + type);
+            textView.setText("BaisiBaseFramgent " + tab);
             textView.setTextSize(30);
             textView.setGravity(Gravity.CENTER);
             return textView;
