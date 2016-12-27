@@ -14,25 +14,25 @@
         android:padding="10dp">
 
         <RadioButton
-            android:id="@+id/tab_baisi"
+            android:id="@+id/tab_book"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@mipmap/tab_comprehensive_icon"
             android:gravity="center"
-            android:text="@string/best"
+            android:text="@string/book"
             android:textColor="@color/tab_text_bg" />
 
         <RadioButton
-            android:id="@+id/tab_news"
+            android:id="@+id/tab_joyful"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@mipmap/tab_move_icon"
             android:gravity="center"
-            android:text="@string/news"
+            android:text="@string/joyful"
             android:textColor="@color/tab_text_bg" />
 
         <RadioButton

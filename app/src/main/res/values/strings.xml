@@ -2,8 +2,8 @@
     <string name="app_name">hodgepodge</string>
 
     <!--底部菜单-->
-    <string name="best">百思</string>
-    <string name="news">新闻</string>
+    <string name="book">百阅</string>
+    <string name="joyful">百悦</string>
     <string name="found">知识</string>
     <string name="about">关于</string>
     <string name="baisi">百思不得姐</string>

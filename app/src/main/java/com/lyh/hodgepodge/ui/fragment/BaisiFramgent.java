@@ -3,10 +3,7 @@ package com.lyh.hodgepodge.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by lyh on 2016/12/23.
  */
 
-public class BaisiFramgent extends BaseFramgent<BaisiBaseFramgentPresenter> implements BaisiView,
+public class BaisiFramgent extends BaseFragment<BaisiBaseFramgentPresenter> implements BaisiView,
         LMRecyclerView.LoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recycler_view)
@@ -45,12 +42,6 @@ public class BaisiFramgent extends BaseFramgent<BaisiBaseFramgentPresenter> impl
 
     private boolean isRefresh = true;
     private boolean canLoading = true;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     public static BaisiFramgent getInstance(Bundle tab) {
         BaisiFramgent baisiFramgent = new BaisiFramgent();
@@ -68,22 +59,24 @@ public class BaisiFramgent extends BaseFramgent<BaisiBaseFramgentPresenter> impl
         switch (tab) {
             case 0:
                 type = "";
-                break;
+                return view;
             case 2:
                 type = "10";
-                break;
+                return view;
+            case 3:
+                type = "29";
+                return view;
+            case 1:
+            case 4:
+            case 5:
+            case 6:
+                TextView textView = new TextView(getActivity());
+                textView.setText("BaisiBaseFramgent " + tab);
+                textView.setTextSize(30);
+                textView.setGravity(Gravity.CENTER);
+                return textView;
             default:
-                break;
-        }
-
-        if (tab == 0 || tab ==2) {
-            return view;
-        } else {
-            TextView textView = new TextView(getActivity());
-            textView.setText("BaisiBaseFramgent " + tab);
-            textView.setTextSize(30);
-            textView.setGravity(Gravity.CENTER);
-            return textView;
+                return null;
         }
     }
 

@@ -8,7 +8,7 @@ import com.lyh.hodgepodge.presenter.BasePresenter;
  * Created by lyh on 2016/12/23.
  */
 
-public abstract class BaseFramgent<T extends BasePresenter>  extends Fragment{
+public abstract class BaseFragment<T extends BasePresenter>  extends Fragment{
 
     protected T presenter;
 

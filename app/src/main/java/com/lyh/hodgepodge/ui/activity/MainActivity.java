@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 
 import com.lyh.hodgepodge.R;
 import com.lyh.hodgepodge.ui.fragment.BaisiTabFragment;
+import com.lyh.hodgepodge.ui.fragment.BookTabFragment;
 import com.lyh.hodgepodge.ui.fragment.FourFragment;
 import com.lyh.hodgepodge.ui.fragment.NewsFragment;
 import com.lyh.hodgepodge.ui.fragment.ThirdFragment;
@@ -27,16 +28,16 @@ public class MainActivity extends BaseActivity implements IBaseView {
 
     @BindView(R.id.id_content)
     FrameLayout idContent;
-    @BindView(R.id.tab_baisi)
-    RadioButton tabBaisi;
-    @BindView(R.id.tab_news)
-    RadioButton tabNews;
+    @BindView(R.id.tab_book)
+    RadioButton tabBook;
+    @BindView(R.id.tab_joyful)
+    RadioButton tabJoyful;
     @BindView(R.id.tab_found)
     RadioButton tabFound;
     @BindView(R.id.tab_about)
     RadioButton tabAbout;
 
-    @BindViews({R.id.tab_baisi, R.id.tab_news, R.id.tab_found, R.id.tab_about})
+    @BindViews({R.id.tab_book, R.id.tab_joyful, R.id.tab_found, R.id.tab_about})
     List<RadioButton> mTabs;
 
     private Fragment mTab01;
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity implements IBaseView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        setSelect(0);
+        setSelect(1);
     }
 
     @Override
@@ -61,13 +62,13 @@ public class MainActivity extends BaseActivity implements IBaseView {
         setSelect(0);
     }
 
-    @OnClick({R.id.tab_baisi, R.id.tab_news, R.id.tab_found, R.id.tab_about})
+    @OnClick({R.id.tab_book, R.id.tab_joyful, R.id.tab_found, R.id.tab_about})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tab_baisi:
+            case R.id.tab_book:
                 setSelect(0);
                 break;
-            case R.id.tab_news:
+            case R.id.tab_joyful:
                 setSelect(1);
                 break;
             case R.id.tab_found:
@@ -87,17 +88,16 @@ public class MainActivity extends BaseActivity implements IBaseView {
         switch (select) {
             case 0:
                 if (mTab01 == null) {
-                    mTab01 = new BaisiTabFragment();
+                    mTab01 = new BookTabFragment();
                     transaction.add(R.id.id_content, mTab01);
                 } else {
                     transaction.show(mTab01);
                 }
                 mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_pressed_icon, 0, 0);
-                Log.d("1111", "select 0");
                 break;
             case 1:
                 if (mTab02 == null) {
-                    mTab02 = new NewsFragment();
+                    mTab02 = new BaisiTabFragment();
                     transaction.add(R.id.id_content, mTab02);
                 } else {
                     transaction.show(mTab02);
@@ -127,7 +127,6 @@ public class MainActivity extends BaseActivity implements IBaseView {
                 break;
         }
         transaction.commit();
-        Log.d("1111", "transaction.commit();");
     }
 
     private void hideFragment(FragmentTransaction transaction) {
