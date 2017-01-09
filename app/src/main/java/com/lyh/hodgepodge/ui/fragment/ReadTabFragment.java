@@ -1,5 +1,6 @@
 package com.lyh.hodgepodge.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lyh.hodgepodge.R;
+import com.lyh.hodgepodge.model.entity.ReadType;
 import com.lyh.hodgepodge.model.entity.ReadType.ShowapiResBodyBean.TypeListBean;
 import com.lyh.hodgepodge.presenter.ReadPresenter;
 import com.lyh.hodgepodge.ui.view.ReadTypeView;
@@ -43,7 +45,23 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
     private List<ReadFragment> mFragmentList;
     private List<TypeListBean> mList;
     private ReadTabAdapter mAdapter;
-    private String[] mTitles;
+    private String[] mTitles = new String[]{
+            "家事"
+            , "国事"
+            , "天下事"
+            , "有趣的事"
+            , "历史故事"
+            , "书中事"
+            , "心事"
+            , "男人的事"
+            , "女人的事"
+            , "读者文摘"
+            , "看点"
+            , "侃点"
+            , "段子"
+            , "经典语句"};
+
+    private String[] tabTitle;
 
     @Nullable
     @Override
@@ -62,19 +80,19 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
         presenter = new ReadPresenter(getContext(), this);
         presenter.init();
         mList = new ArrayList<>();
-        presenter.fetchReadType();
         mFragmentList = new ArrayList<>();
         mFragmentList.clear();
-        Log.d("1111", "mList.size()  = " + mList.size());
-        for (int i = 0; i < mList.size(); i++) {
+        for (int i = 0; i < mTitles.length; i++) {
             Bundle bundle = new Bundle();
             bundle.putInt("tab", i);
             mFragmentList.add(ReadFragment.getInstance(bundle));
         }
-        mAdapter = new ReadTabAdapter(getChildFragmentManager());
+        mAdapter = new ReadTabAdapter(mList, getChildFragmentManager());
         viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        presenter.fetchReadType();
+
     }
 
     @Override
@@ -94,11 +112,28 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
 
     @Override
     public void showListView(List<TypeListBean> readTypes) {
-        mTitles = new String[readTypes.size()];
-        List<String> title = new ArrayList<>();
-        mList = readTypes;
-//        readTypes.
-        Log.d("1111", "readTypes = " + mList.toString());
+        List<String> tmp = new ArrayList<>();
+        tabTitle = new String[]{};
+        for (TypeListBean list : readTypes) {
+            tmp.add(list.getName());
+        }
+        for (int i = 0; i < tmp.size(); i++) {
+            tabTitle[i] = tmp.get(i);
+        }
+
+        Log.d("1111", " tabTitle = " + tabTitle.toString());
+//        mList.clear();
+//        mList.addAll(readTypes);
+//        mAdapter = new ReadTabAdapter(mList, getChildFragmentManager());
+//        viewPager.setAdapter(mAdapter);
+//        tabLayout.setupWithViewPager(viewPager);
+//        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        for (int i = 0; i < mTitles.length; i++) {
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("tab", i);
+//            mFragmentList.add(ReadFragment.getInstance(bundle));
+//        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -107,10 +142,12 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
     }
 
     public class ReadTabAdapter extends FragmentStatePagerAdapter {
+        List<TypeListBean> mList;
         List<String> mTitle;
 
-        public ReadTabAdapter(FragmentManager fm) {
+        public ReadTabAdapter(List<TypeListBean> list, FragmentManager fm) {
             super(fm);
+            this.mList = list;
         }
 
         @Override
@@ -120,7 +157,7 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
 
         @Override
         public int getCount() {
-            return mList.size();
+            return mTitles.length;
         }
 
         @Override
@@ -129,7 +166,7 @@ public class ReadTabFragment extends BaseFragment<ReadPresenter> implements Read
                 String name = list.getName();
                 mTitle.add(name);
             }
-            return mTitle.get(position);
+            return mTitles[position];
         }
     }
 }

@@ -32,9 +32,10 @@ public class RatioImageView extends ImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (originalWidth > 0 && originalHeight > 0) {
-            float ratio = (float) originalWidth / (float) originalHeight;
+//            float ratio = (float) originalWidth / (float) originalHeight;
             int width = MeasureSpec.getSize(widthMeasureSpec);
             int height = MeasureSpec.getSize(heightMeasureSpec);
+            float ratio = (float) width / (float) height;
             // TODO: 现在只支持固定宽度
             if (width > 0) {
                 height = (int) ((float) width / ratio);

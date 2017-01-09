@@ -62,7 +62,6 @@ public class ReadPresenter extends BasePresenter<ReadTypeView>{
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.i("1111", "list2 =  " + throwable);
                     }
                 });
     }
