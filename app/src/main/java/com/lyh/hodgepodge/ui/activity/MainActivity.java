@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -13,8 +12,7 @@ import com.lyh.hodgepodge.R;
 import com.lyh.hodgepodge.ui.fragment.BaisiTabFragment;
 import com.lyh.hodgepodge.ui.fragment.BookTabFragment;
 import com.lyh.hodgepodge.ui.fragment.FourFragment;
-import com.lyh.hodgepodge.ui.fragment.NewsFragment;
-import com.lyh.hodgepodge.ui.fragment.ThirdFragment;
+import com.lyh.hodgepodge.ui.fragment.ReadTabFragment;
 import com.lyh.hodgepodge.ui.view.IBaseView;
 
 import java.util.List;
@@ -107,7 +105,7 @@ public class MainActivity extends BaseActivity implements IBaseView {
                 break;
             case 2:
                 if (mTab03 == null) {
-                    mTab03 = new ThirdFragment();
+                    mTab03 = new ReadTabFragment();
                     transaction.add(R.id.id_content, mTab03);
                 } else {
                     transaction.show(mTab03);

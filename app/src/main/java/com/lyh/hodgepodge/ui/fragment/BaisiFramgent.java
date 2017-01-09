@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.lyh.hodgepodge.R;
 import com.lyh.hodgepodge.adapter.BaisiAdapter;
 import com.lyh.hodgepodge.model.entity.Baisi;
+import com.lyh.hodgepodge.model.entity.Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean;
 import com.lyh.hodgepodge.presenter.BaisiBaseFramgentPresenter;
 import com.lyh.hodgepodge.ui.view.BaisiView;
 import com.lyh.hodgepodge.ui.widget.LMRecyclerView;
@@ -38,7 +39,7 @@ public class BaisiFramgent extends BaseFragment<BaisiBaseFramgentPresenter> impl
     private int page = 1;
     private String type;
     private BaisiAdapter adapter;
-    private List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> mList;
+    private List<ContentlistBean> mList;
 
     private boolean isRefresh = true;
     private boolean canLoading = true;
@@ -132,7 +133,7 @@ public class BaisiFramgent extends BaseFragment<BaisiBaseFramgentPresenter> impl
     }
 
     @Override
-    public void showListView(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> baisiList) {
+    public void showListView(List<ContentlistBean> baisiList) {
         canLoading = true;
         page++;
         if (isRefresh) {
