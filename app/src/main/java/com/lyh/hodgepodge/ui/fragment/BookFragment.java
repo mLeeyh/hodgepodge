@@ -29,4 +29,14 @@ public class BookFragment extends BaseFragment{
         view.setGravity(Gravity.CENTER);
         return view;
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return 0;
+    }
+
+    @Override
+    protected void initPresenter() {
+
+    }
 }

@@ -8,9 +8,10 @@ import java.util.List;
  * Created by lyh on 2017/1/9.
  */
 
-public interface ReadTypeView extends IBaseView {
+public interface IReadTypeView extends IBaseView {
     void showProgressBar();
     void hideProgressBar();
+
     void showErrorView();
     void showListView(List<ReadType.ShowapiResBodyBean.TypeListBean> readTypes);
 }

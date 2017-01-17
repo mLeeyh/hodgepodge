@@ -81,6 +81,16 @@ public class BaisiFramgent extends BaseFragment<BaisiBaseFramgentPresenter> impl
         }
     }
 
+    @Override
+    protected int getLayoutResId() {
+        return 0;
+    }
+
+    @Override
+    protected void initPresenter() {
+
+    }
+
     private void initData() {
         presenter = new BaisiBaseFramgentPresenter(getContext(), this);
         presenter.init();

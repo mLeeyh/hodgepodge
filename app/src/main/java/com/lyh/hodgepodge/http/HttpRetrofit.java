@@ -5,6 +5,7 @@ import com.lyh.hodgepodge.model.GanHuoData;
 import com.lyh.hodgepodge.model.GankData;
 import com.lyh.hodgepodge.model.MeiziData;
 import com.lyh.hodgepodge.model.entity.Baisi;
+import com.lyh.hodgepodge.model.entity.Read;
 import com.lyh.hodgepodge.model.entity.ReadType;
 
 import retrofit2.http.GET;
@@ -24,19 +25,25 @@ public interface HttpRetrofit {
                                    @Query("showapi_timestamp") String showapi_timestamp,
                                    @Query("title") String title, @Query("type") String type,
                                    @Query("showapi_sign") String sign);
+
     // https://route.showapi.com/990-1?showapi_appid=25788&showapi_timestamp=20170109112724&showapi_sign=e966e108fe2e7e6902507a487900d7bf
     @GET("990-1")
     Observable<ReadType> getReadType(@Query("showapi_appid") String appid,
                                      @Query("showapi_timestamp") String timestamp,
                                      @Query("showapi_sign") String sign);
 
-
-
+    //https://route.showapi.com/990-2?id=1&page=1&showapi_appid=25788&showapi_timestamp=20170117142354&showapi_sign=85c11ad78b79f8498fc015201a12741e
+    @GET("990-2")
+    Observable<Read> getReadData(@Query("id") String id, @Query("page") int page,
+                                 @Query("showapi_appid") String appid,
+                                 @Query("showapi_timestamp") String timestamp,
+                                 @Query("showapi_sign") String sign);
 
 
     // http://gank.io/api/data/数据类型/请求个数/第几页
     @GET(value = "data/福利/" + "20" + "/{page}")
     Observable<MeiziData> getMeiziData(@Path("page") int page);
+
     @GET("data/休息视频/" + "20" + "/{page}")
     Observable<FunnyData> getFunnyData(@Path("page") int page);
 
@@ -48,6 +55,6 @@ public interface HttpRetrofit {
             @Path("day") int day);
 
     //请求不同类型干货（通用）
-    @GET("data/{type}/"+"20"+"/{page}")
+    @GET("data/{type}/" + "20" + "/{page}")
     Observable<GanHuoData> getGanHuoData(@Path("type") String type, @Path("page") int page);
 }
