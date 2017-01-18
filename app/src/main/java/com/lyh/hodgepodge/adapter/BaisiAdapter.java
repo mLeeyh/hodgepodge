@@ -14,6 +14,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.lyh.hodgepodge.R;
 import com.lyh.hodgepodge.model.entity.Baisi;
+import com.lyh.hodgepodge.model.entity.Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean;
 import com.lyh.hodgepodge.ui.widget.RatioImageView;
 
 import java.util.List;
@@ -28,13 +29,13 @@ import retrofit2.http.Url;
 
 public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder> {
 
-    List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> mList;
+    List<ContentlistBean> mList;
     Context context;
     int lastPosition = 0;
 
 
 
-    public BaisiAdapter(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> list, Context context) {
+    public BaisiAdapter(List<ContentlistBean> list, Context context) {
         this.mList = list;
         this.context = context;
     }
@@ -47,7 +48,7 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
 
     @Override
     public void onBindViewHolder(BaisiHolder holder, int position) {
-        Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean baisi = mList.get(position);
+        ContentlistBean baisi = mList.get(position);
         holder.tvDescTitle.setTag(baisi);
         holder.tvDescTitle.setText(mList.get(position).getText());
         int red = (int) (Math.random() * 255);
@@ -55,9 +56,11 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
         int blue = (int) (Math.random() * 255);
         holder.ivPicture.setBackgroundColor(Color.argb(204, red, green, blue));
         if (baisi.getImage0() != null) {
-            Glide.with(context).load(baisi.getImage0())
+            Glide.with(context)
+                    .load(baisi.getImage0())
                     .error(R.mipmap.ic_launcher)
-                    .crossFade().into(holder.ivPicture);
+                    .crossFade()
+                    .into(holder.ivPicture);
 
         }else if (baisi.getVideo_uri() !=null){
             Uri parse = Uri.parse(baisi.getVideo_uri());
@@ -78,7 +81,7 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
         @BindView(R.id.tv_desc_title)
         TextView tvDescTitle;
         @BindView(R.id.iv_picture)
-        ImageView ivPicture;
+        RatioImageView ivPicture;
         @BindView(R.id.videoView)
         VideoView videoView;
 
@@ -86,7 +89,7 @@ public class BaisiAdapter extends RecyclerView.Adapter<BaisiAdapter.BaisiHolder>
         public BaisiHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-//            ivPicture.setOriginalSize(300,150);
+            ivPicture.setOriginalSize(300,300);
         }
     }
 

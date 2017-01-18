@@ -1,42 +1,94 @@
 package com.lyh.testdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+
+    String url = "http://www.de99.cn/news/1/13468.html";
+    Document doc = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWeather();
+        Log.i("1111", "run: doc ++ ");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    doc = Jsoup.parse(new URL(url), 5000);
+                    //doc = Jsoup.connect(url).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.i("1111", "run: e");
+                }
+            }
+        });
+        thread.start();
+        // String content = GetDocContent(doc);
+        // System.out.println("网页正文如下：\n" + content);
     }
 
-    private void getWeather() {
-        AppClient.ApiStores apiStores = AppClient.retrofit().create(AppClient.ApiStores.class);
-        Observable<WeatherJson> observable = apiStores.getWeather("101010100");
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<WeatherJson>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i("wxl", "onCompleted");
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("wxl", "e=" + e.getMessage());
-                    }
-                    @Override
-                    public void onNext(WeatherJson weatherJson) {
-                        Log.i("wxl", "getWeatherinfo=" + weatherJson.getWeatherinfo().toString());
-                    }
-                });
-
+    private String GetDocContent(Document doc) {
+        Elements divs = doc.body().getElementsByTag("div");
+        int max = -1;
+        String content = null;
+        for (int i = 0; i < divs.size(); i++) {
+            Element div = (Element) divs.get(i);
+            String divContent = GetDivContent(div);
+            if (divContent.length() > max) {
+                max = divContent.length();
+                content = divContent;
+            }
+        }
+        return content;
     }
+
+    private String GetDivContent(Element div) {
+        StringBuilder sb = new StringBuilder();
+//考虑div里标签内容的顺序，对div子树进行深度优先搜索
+        Stack<Element> sk = new Stack<Element>();
+        sk.push(div);
+        while (!sk.empty()) {
+            //
+            Element e = sk.pop();
+            //对于div中的div过滤掉
+            if (e != div && e.tagName().equals("div")) continue;
+            //考虑正文被包含在p标签中的情况，并且p标签里不能含有a标签
+            if (e.tagName().equals("p") && e.getElementsByTag("a").size() == 0) {
+                String className = e.className();
+                if (className.length() != 0 && className.equals("pictext")) continue;
+                sb.append(e.text());
+                sb.append("\n");
+                continue;
+            } else if (e.tagName().equals("td")) {
+                //考虑正文被包含在td标签中的情况
+                if (e.getElementsByTag("div").size() != 0) continue;
+                sb.append(e.text());
+                sb.append("\n");
+                continue;
+
+            }
+            //将孩子节点加入栈中
+            Elements children = e.children();
+            for (int i = children.size() - 1; i >= 0; i--) {
+                sk.push((Element) children.get(i));
+            }
+        }
+
+        return sb.toString();
+    }
+
 }

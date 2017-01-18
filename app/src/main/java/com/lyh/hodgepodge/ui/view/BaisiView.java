@@ -1,6 +1,7 @@
 package com.lyh.hodgepodge.ui.view;
 
 import com.lyh.hodgepodge.model.entity.Baisi;
+import com.lyh.hodgepodge.model.entity.Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface BaisiView extends IBaseView {
     void hideProgressBar();
     void showErrorView();
     void showNoMoreData();
-    void showListView(List<Baisi.ShowapiResBodyBean.PagebeanBean.ContentlistBean> baisiList);
+    void showListView(List<ContentlistBean> baisiList);
 }

@@ -34,8 +34,9 @@ public class ReadPresenter extends BasePresenter<IReadView>{
     }
 
     public void fetchReadData(String id,int page){
-        https://route.showapi.com/990-2?id=1&page=1&showapi_appid=29268&showapi_timestamp=&showapi_sign=2bc6af3dbede4893b5e00ff7f006e7dc
-        subscription = HttpClient.getHttpRetrofitInstance().getReadData(id,page,"29268","","2bc6af3dbede4893b5e00ff7f006e7dc")
+        iView.showProgressBar();
+        subscription = HttpClient.getHttpRetrofitInstance()
+                .getReadData(id,page,"29268","","2bc6af3dbede4893b5e00ff7f006e7dc")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<Read, List<ContentlistBean>>() {
@@ -48,11 +49,10 @@ public class ReadPresenter extends BasePresenter<IReadView>{
                 .subscribe(new Action1<List<ContentlistBean>>() {
                     @Override
                     public void call(List<ContentlistBean> contentlistBean) {
-                        Log.i("1111", "read = " + contentlistBean.toString());
                         iView.hideProgressBar();
                         if (contentlistBean.size() == 0) {
                             Log.i("1111", "list = 0 ");
-                            //iView.showNoMoreData();
+                            iView.showNoMoreData();
                         } else {
                             Log.i("1111", "list1 = " + contentlistBean.toString());
                             iView.showListView(contentlistBean);
@@ -61,6 +61,8 @@ public class ReadPresenter extends BasePresenter<IReadView>{
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        iView.hideProgressBar();
+                        iView.showErrorView();
                     }
                 });
     }

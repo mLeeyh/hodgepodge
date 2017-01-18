@@ -10,19 +10,23 @@ import com.lyh.hodgepodge.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
     protected String TAG = this.getClass().getSimpleName();
+    protected T presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
+        initPresenter();
         Log.i(TAG, "onCreate");
     }
 
     protected abstract int getLayoutResId();
+    protected abstract void initPresenter();
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

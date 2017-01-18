@@ -25,7 +25,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         View view = inflater.inflate(getLayoutResId(), container, false);
         ButterKnife.bind(this, view);
         initPresenter();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     protected abstract int getLayoutResId();

@@ -64,11 +64,12 @@ public class ReadTabFragment extends Fragment {
         mFragmentList.clear();
         for (int i = 0; i < mTitles.length; i++) {
             Bundle bundle = new Bundle();
-            bundle.putString("id", mTitles[i]);
+            bundle.putString("id", mType[i]);
             mFragmentList.add(ReadFragment.getInstance(bundle));
         }
         mAdapter = new ReadTabAdapter(mList, getChildFragmentManager());
         viewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(5);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }

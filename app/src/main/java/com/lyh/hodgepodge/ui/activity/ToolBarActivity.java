@@ -16,8 +16,9 @@ import butterknife.BindView;
  * Created by lyh on 2016/12/24.
  */
 
-public abstract class ToolBarActivity extends BaseActivity {
+public abstract class ToolBarActivity<T extends BasePresenter> extends BaseActivity {
     protected ActionBar actionBar;
+    protected T presenter;
     protected boolean isToolBarHiding = false;
 
     @BindView(R.id.toolbar)
@@ -31,15 +32,21 @@ public abstract class ToolBarActivity extends BaseActivity {
         initToolBar();
     }
 
+    /**
+     * 设置 home icon 是否可见
+     *
+     * @return
+     */
+    protected boolean canBack() {
+        return true;
+    }
+
     protected void initToolBar() {
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(canBack());
     }
 
-    protected boolean canBack(){
-        return true;
-    }
 
     protected void hideOrShowToolBar() {
         appBar.animate()

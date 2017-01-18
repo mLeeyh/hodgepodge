@@ -14,4 +14,5 @@ public class Config {
 
     public static final String BAISI= "baisi";
     public static final String GANK_URL = "gank_url";
+    public static final String SPECIAL_READ = "special_read";
 }
