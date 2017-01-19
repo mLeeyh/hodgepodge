@@ -20,6 +20,10 @@ public class BaisiActivity extends BaseActivity implements BaisiView {
         return R.layout.activity_main;
     }
 
+    @Override
+    protected void initPresenter() {
+
+    }
 
 
     @Override

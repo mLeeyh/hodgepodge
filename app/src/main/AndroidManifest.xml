@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SpecialReadActivity" />
+        <activity android:name=".ui.activity.ReadDetailsActivity" />
         <activity android:name=".ui.activity.BaisiActivity" />
     </application>
 </manifest>

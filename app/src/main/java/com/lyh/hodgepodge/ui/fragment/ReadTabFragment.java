@@ -55,6 +55,7 @@ public class ReadTabFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_book_tab, container, false);
         ButterKnife.bind(this, view);
         initData();
+        toolbar.setVisibility(View.INVISIBLE);
         return view;
     }
 

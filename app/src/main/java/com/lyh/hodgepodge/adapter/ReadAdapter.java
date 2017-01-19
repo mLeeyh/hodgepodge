@@ -8,7 +8,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.lyh.hodgepodge.Config;
 import com.lyh.hodgepodge.R;
 import com.lyh.hodgepodge.model.entity.Read.ShowapiResBodyBean.PagebeanBean.ContentlistBean;
-import com.lyh.hodgepodge.ui.activity.SpecialReadActivity;
+import com.lyh.hodgepodge.ui.activity.ReadDetailsActivity;
 import com.lyh.hodgepodge.ui.widget.RatioImageView;
 import com.lyh.hodgepodge.utils.ShareElement;
 
@@ -37,6 +36,7 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.ReadHolder> {
 
     List<ContentlistBean> readList;
     Context context;
+    String url = null;
 
     public ReadAdapter(List<ContentlistBean> readList, Context context) {
         this.readList = readList;
@@ -53,7 +53,9 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.ReadHolder> {
     public void onBindViewHolder(ReadHolder holder, int position) {
         ContentlistBean read = readList.get(position);
         holder.tvDesc.setTag(read);
-        holder.tvDesc.setText(readList.get(position).getSummary());
+        holder.tvDesc.setText("        " + readList.get(position).getSummary());
+        holder.tvTitle.setText(readList.get(position).getTitle());
+        url = readList.get(position).getLink();
         int red = (int) (Math.random() * 255);
         int green = (int) (Math.random() * 255);
         int blue = (int) (Math.random() * 255);
@@ -75,19 +77,23 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.ReadHolder> {
 
         View card;
 
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
         @BindView(R.id.tv_desc)
         TextView tvDesc;
         @BindView(R.id.iv_img)
         RatioImageView ivImg;
         @BindView(R.id.cardView)
         CardView cardView;
+
         @OnClick(R.id.cardView)
         public void onClick() {
             ShareElement.shareDrawable = ivImg.getDrawable();
-            Intent intent = new Intent(context, SpecialReadActivity.class);
+            Intent intent = new Intent(context, ReadDetailsActivity.class);
             intent.putExtra(Config.SPECIAL_READ, (Serializable) card.getTag());
+            intent.putExtra("url", url);
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation((Activity)context,ivImg,Config.SPECIAL_READ);
+                    .makeSceneTransitionAnimation((Activity) context, ivImg, Config.SPECIAL_READ_IMAGE);
             ActivityCompat.startActivity((Activity) context, intent, optionsCompat.toBundle());
         }
 

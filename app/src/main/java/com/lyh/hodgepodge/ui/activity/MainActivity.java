@@ -56,6 +56,11 @@ public class MainActivity extends BaseActivity implements IBaseView {
     }
 
     @Override
+    protected void initPresenter() {
+
+    }
+
+    @Override
     public void initView() {
         setSelect(0);
     }
