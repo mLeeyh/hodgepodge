@@ -7,6 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.lyh.hodgepodge.model.entity.ReadDetails;
 import com.lyh.hodgepodge.presenter.ReadDetailsPresenter;
 import com.lyh.hodgepodge.ui.view.IReadDetailsView;
 import com.lyh.hodgepodge.utils.ShareElement;
+import com.lyh.hodgepodge.utils.TipUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 /**
  * Created by lyh on 2017/1/18.
@@ -50,7 +52,8 @@ public class ReadDetailsActivity extends ToolBarActivity<ReadDetailsPresenter> i
     TextView tvTitle;
     @BindView(R.id.tv_content)
     TextView tvContent;
-
+    @BindView(R.id.progressbar)
+    SmoothProgressBar progressbar;
 
     @Override
     protected int getLayoutResId() {
@@ -93,7 +96,7 @@ public class ReadDetailsActivity extends ToolBarActivity<ReadDetailsPresenter> i
             // 接下来的就是JSON对象的操作了
             String title = person.getString("title");
             String neirong = person.getString("neirong");
-            Log.i("1111","title");
+            Log.i("1111","title = " + title);
             tvTitle.setText(title);
             tvContent.setText(Html.fromHtml(neirong));
         } catch (JSONException e) {
@@ -103,17 +106,17 @@ public class ReadDetailsActivity extends ToolBarActivity<ReadDetailsPresenter> i
 
     @Override
     public void showProgressBar() {
-
+        progressbar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
-
+        progressbar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showErrorView() {
-
+        tvTitle.setText("获取数据失败了！！！");
     }
 
 

@@ -1,6 +1,7 @@
 package com.lyh.hodgepodge.http;
 
 import com.lyh.hodgepodge.model.entity.Baisi;
+import com.lyh.hodgepodge.model.entity.History;
 import com.lyh.hodgepodge.model.entity.Read;
 import com.lyh.hodgepodge.model.entity.ReadDetails;
 import com.lyh.hodgepodge.model.entity.ReadType;
@@ -45,4 +46,10 @@ public interface HttpRetrofit {
                                            @Query("url") String url,
                                            @Query("showapi_sign") String sign);
 
+    //https://route.showapi.com/119-42?date=0706&showapi_appid=25788&showapi_timestamp=20170122085047&showapi_sign=fc645c6fdaf6bb1338ee2252fa94a733
+    @GET("119-42")
+    Observable<History> getHistoryData(@Query("date")String date,
+                                       @Query("showapi_appid") String appid,
+                                       @Query("showapi_timestamp") String timestamp,
+                                       @Query("showapi_sign") String sign);
 }

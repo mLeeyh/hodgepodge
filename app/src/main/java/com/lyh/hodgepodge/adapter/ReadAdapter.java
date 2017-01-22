@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,8 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.ReadHolder> {
         holder.tvDesc.setText("        " + readList.get(position).getSummary());
         holder.tvTitle.setText(readList.get(position).getTitle());
         url = readList.get(position).getLink();
+        Log.i("11112", "onBindViewHolder: onclick tvTitle = " + holder.tvTitle.toString() + "\n"
+                        + "tvDesc = " + holder.tvDesc.toString() + "\n" + "url = " + url );
         int red = (int) (Math.random() * 255);
         int green = (int) (Math.random() * 255);
         int blue = (int) (Math.random() * 255);
